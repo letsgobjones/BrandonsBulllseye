@@ -56,7 +56,7 @@ struct ContentView: View {
         var roundedValue: Int = Int(sliderValue.rounded())
         Text("""
 The slider's value is \(roundedValue)
-You scored \(game.point(sliderValue: roundedValue))points this round.
+You scored \(game.point(sliderValue: roundedValue)) points this round.
 
 """)
       }
