@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 //
 //  BackgroundView.swift
 //  Bullseye
@@ -11,7 +11,6 @@ import SwiftUI
 struct BackgroundView: View {
   
   @Binding var game: Game
-  
   var body: some View {
     
     VStack{
@@ -23,8 +22,7 @@ struct BackgroundView: View {
     }
     .padding()
     .background(
-      Color("BackgroundColor")
-        .ignoresSafeArea()
+    RingsView()
     )
     
     
@@ -82,94 +80,33 @@ struct BottomView: View {
 }
 
 
-
-
-
-
-
-
-#Preview {
-  BackgroundView(game: .constant(Game()))
-}
-||||||| 59045bb
-=======
-//
-//  BackgroundView.swift
-//  Bullseye
-//
-//  Created by Brandon Jones on 2/1/24.
-//
-
-import SwiftUI
-
-struct BackgroundView: View {
-  
-  @Binding var game: Game
-  
+struct RingsView: View {
+  @Environment(\.colorScheme) var colorScheme
   var body: some View {
     
-    VStack{
-      
-      TopView(game: $game)
-      Spacer()
-      BottomView(game: $game)
-      
-    }
-    .padding()
-    .background(
+    
+    ZStack {
       Color("BackgroundColor")
         .ignoresSafeArea()
-    )
-    
-    
-  }
-}
-
-
-
-
-struct TopView: View {
-  @Binding var game: Game
-  var body: some View {
-    HStack {
       
-      RoundedImageViewStroked(systemName: "arrow.counterclockwise")
-      Spacer()
-      RoundedImageViewFilled(systemName: "list.dash")
+      ForEach(1..<6) { ring in
+        let size = CGFloat(ring) * 100
+        let opacity = colorScheme == .dark ? 0.1 : 0.3
+        Circle()
+          .stroke(lineWidth: 20)
+          .fill(
+            RadialGradient(gradient: Gradient(colors: [Color("RingsColor").opacity(opacity * 0.8), Color("RingsColor").opacity(0)]), center: .center, startRadius: 100, endRadius: 300)
+            )
+          .frame(width: size, height: size)
+      }
       
-    }
-  }
-}
-
-
-
-
-struct NumberView: View {
-  var title: String
-  var text: String
   
-  var body: some View {
-    VStack (spacing: 5){
-    LabelText(text: title)
-      RoundRectTextView(text: text)
+      
+        
+      }
+      
     }
   }
-}
-
-
-
-struct BottomView: View {
-  @Binding var game: Game
-  var body: some View {
-    HStack {
-      NumberView(title: "Score", text: String(game.score))
-      Spacer()
-      NumberView(title: "Round", text: String(game.round))
-    }
-  }
-}
-
-
 
 
 
@@ -179,4 +116,3 @@ struct BottomView: View {
 #Preview {
   BackgroundView(game: .constant(Game()))
 }
->>>>>>> 95e09030bb956c3fcf0ec8c100a9914269c2d26f
