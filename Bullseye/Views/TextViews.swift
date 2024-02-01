@@ -60,11 +60,48 @@ struct LabelText: View {
   }
 }
 
+
+struct BodyText: View {
+  
+  var text: String
+  var body: some View {
+    
+    Text(text)
+      .font(.subheadline)
+      .fontWeight(.semibold)
+      .multilineTextAlignment(.center)
+      .foregroundColor(Color("TextColor"))
+  }
+}
+
+
+struct ButtonText: View {
+  
+  var text: String
+  var body: some View {
+    
+    Text(text)
+      .foregroundColor(.white)
+      .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+      .font(.headline)
+      .padding()
+      .frame(maxWidth: .infinity)
+      .background(Color.accentColor)
+      .foregroundColor(.white)
+      .cornerRadius(12.0)
+  }
+}
+
+
+
 #Preview {
   VStack{
     InstructionText(text: "Instructions")
     BigNumberText(text: "999")
     SliderLabelText(text: "50")
     LabelText(text: "Score")
+    BodyText(text: "You scored 200 Points\n 🎉🎉🎉 ")
+    ButtonText(text: "Start New Round")
   }
+  .padding()
 }
