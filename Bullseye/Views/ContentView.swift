@@ -21,15 +21,19 @@ struct ContentView: View {
         
         if alertIsVisable {
           PointsView(alertIsVisable: $alertIsVisable, sliderValue: $sliderValue, game: $game)
+            .transition(.scale)
         } else {
         
             HitMeButton(game: $game, alertIsVisable: $alertIsVisable, sliderValue: $sliderValue)
+            .transition(.scale)
             
           }
         }
       if !alertIsVisable {
         
         SliderView(sliderValue: $sliderValue)
+          .zIndex(1.0)
+          .transition(.scale)
       }
         
         
@@ -80,7 +84,9 @@ struct HitMeButton: View {
   
   var body: some View {
     Button("Hit me".uppercased()) {
-      alertIsVisable = true
+      withAnimation {
+        alertIsVisable = true
+      }
     }
     .padding(20.0)
     .background(
@@ -103,12 +109,25 @@ struct HitMeButton: View {
   
 
 
-#Preview {
-  ContentView()
-}
+//#Preview {
+//  ContentView()
+//}
+//
 
-#Preview {
 
-  ContentView()
-    .preferredColorScheme(/*@START_MENU_TOKEN@*/.dark/*@END_MENU_TOKEN@*/)
+
+
+struct ContentViewPreview: PreviewProvider {
+
+  static var previews: some View {
+    
+    ContentView()
+
+    
+    ContentView()
+      .preferredColorScheme(.dark)
+      .previewInterfaceOrientation(.landscapeRight)
+    
+    
+  }
 }
