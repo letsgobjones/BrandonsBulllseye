@@ -7,29 +7,6 @@
 
 import SwiftUI
 
-struct RoundedImageViewStroked: View {
-  
-  var systemName: String
-  var body: some View {
-    
-    Image(systemName: systemName)
-      .font(.title)
-      .foregroundColor(Color("TextColor"))
-      .frame(width: 56, height: 56)
-      .overlay(
-      
-      Circle()
-        .strokeBorder(Color("ButtonStrokeColor"), lineWidth: 2.0)
-      
-      )
-    
-    
-  }
-}
-
-
-
-
 
 struct RoundedImageViewFilled: View {
   
@@ -39,7 +16,7 @@ struct RoundedImageViewFilled: View {
     Image(systemName: systemName)
       .font(.title)
       .foregroundColor(Color("ButtonFilledTextColor"))
-      .frame(width: 56, height: 56)
+      .frame(width: Constants.General.roundedViewLength, height: Constants.General.roundedViewLength)
       .background(
         Circle()
           .fill(Color("ButtonFIlledBackgroundColor"))
@@ -49,6 +26,29 @@ struct RoundedImageViewFilled: View {
   }
 }
 
+struct RoundedImageViewStroked: View {
+  
+  var systemName: String
+  var body: some View {
+    
+    Image(systemName: systemName)
+      .font(.title)
+      .foregroundColor(Color("TextColor"))
+      .frame(width: Constants.General.roundedViewLength, height: Constants.General.roundedViewLength)
+      .overlay(
+      
+      Circle()
+        .strokeBorder(Color("ButtonStrokeColor"), lineWidth: Constants.General.strokeWidth)
+      
+      )
+    
+    
+  }
+}
+
+
+
+
 struct RoundRectTextView: View {
   var text: String
   var body: some View {
@@ -57,15 +57,35 @@ Text(text)
       .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
       .kerning(-0.2)
       .font(.title3)
-      .frame(width: 68, height: 56)
+      .frame(width: Constants.General.roundRectViewWidth, height: Constants.General.roundRectViewHeight)
       .foregroundColor(Color("TextColor"))
       .overlay(
-        RoundedRectangle(cornerRadius: 21.0)
-        .strokeBorder(Color("ButtonStrokeColor"), lineWidth: 2.0)
+        RoundedRectangle(cornerRadius: Constants.General.roundRectCornerRadius)
+        .strokeBorder(Color("ButtonStrokeColor"), lineWidth: Constants.General.strokeWidth)
       )
   }
 }
 
+
+
+
+struct RoundedTextView: View {
+  var text: String
+  var body: some View {
+    
+Text(text)
+      .font(.title)
+      .foregroundColor(Color("TextColor"))
+      .frame(width: Constants.General.roundedViewLength, height: Constants.General.roundedViewLength)
+      .overlay(
+      
+      Circle()
+        .strokeBorder(Color("ButtonStrokeColor"), lineWidth: Constants.General.strokeWidth)
+
+      )
+      
+  }
+}
 
 
 
@@ -80,6 +100,7 @@ struct PreviewView: View {
       
       RoundedImageViewStroked(systemName: "list.dash")
       RoundRectTextView(text: "99")
+      RoundedTextView(text: "1")
     }
     
     
