@@ -29,10 +29,18 @@ struct LeaderboardView: View {
 
 
 struct HeaderView: View {
+  @Environment(\.verticalSizeClass) var verticalSizrClass
+  @Environment(\.horizontalSizeClass) var horizontalSizeClass
   
   var body: some View {
     ZStack {
-      BigBoldText(text: "Leaderboard")
+      HStack {
+        BigBoldText(text: "Leaderboard")
+        if verticalSizrClass == .regular && horizontalSizeClass == .compact {
+          
+          Spacer()
+        }
+      }
       
       HStack {
         Spacer()
@@ -50,6 +58,7 @@ struct HeaderView: View {
       
       
     }
+    .padding(.horizontal)
     
   }
   
