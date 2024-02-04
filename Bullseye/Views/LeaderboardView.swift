@@ -12,13 +12,13 @@ import SwiftUI
 
 
 struct LeaderboardView: View {
-  
+  @Binding var leaderboardIsShowing: Bool
     var body: some View {
       ZStack {
         Color("BackgroundColor")
           .ignoresSafeArea()
         VStack(spacing: 10) {
-        HeaderView()
+          HeaderView( leaderboardIsShowing: $leaderboardIsShowing)
           LabelView()
         RowView(index: 1, score: 10, date: Date())
         }
@@ -31,7 +31,8 @@ struct LeaderboardView: View {
 struct HeaderView: View {
   @Environment(\.verticalSizeClass) var verticalSizrClass
   @Environment(\.horizontalSizeClass) var horizontalSizeClass
-  
+  @Binding var leaderboardIsShowing: Bool
+
   var body: some View {
     ZStack {
       HStack {
@@ -46,7 +47,7 @@ struct HeaderView: View {
         Spacer()
         
         Button(action: {
-          //action
+          leaderboardIsShowing = false
         }
                , label: {
           RoundedImageViewFilled(systemName: "xmark")
@@ -121,5 +122,5 @@ struct RowView: View {
 }
 
 #Preview {
-  LeaderboardView()
+  LeaderboardView(leaderboardIsShowing: Binding.constant(false))
 }
